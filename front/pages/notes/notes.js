@@ -4,18 +4,6 @@ document.getElementById('textArea').addEventListener('input', function() {
     this.style.height = (this.scrollHeight) + 'px';
 });
 
-// Buttons editor
-// const elements = document.querySelectorAll(".btn");
-
-// elements.forEach(element => {
-//     element.addEventListener("click", () => {
-//         let command = element.dataset["element"];
-
-//         document.execCommand(command, false, null);
-//     });
-// });
-// End of buttons editor
-
 
 // Headings shortcut
 let ctrlPressed = false;
@@ -60,5 +48,30 @@ document.getElementById('textArea').addEventListener('keyup', function(e) {
         hPressed = false;
     }
 });
-
 // End of headings shortcut
+
+
+document.getElementById('textArea').addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') {
+        document.execCommand('fontSize', false, 3);
+
+        if (document.queryCommandState('bold')) {
+            document.execCommand('bold', false, null);
+        }
+    }
+});
+
+// unordered list
+document.getElementById('textArea').addEventListener('input', function(e) {
+    const textArea = e.target;
+    const content = textArea.innerHTML;
+
+    if (content.endsWith('- ')) {
+        insertUnorderedList(textArea);
+    }
+});
+
+    function insertUnorderedList(textArea) {
+        // add lines here
+    }
+// end of unordered list

@@ -1,7 +1,6 @@
 .container {
     margin-top: 5em;
     margin-left: 5em;
-
 }
 
 #title {
@@ -20,7 +19,25 @@
     border: none;
     outline: none;
     box-shadow: none;
+}
 
+#description {
+    font-size: 1em;
+    color: rgb(82, 82, 82);
+    font-style: italic;
+    overflow: hidden;
+    border: none;
+    outline: none;
+    appearance: none;
+    padding: 0;
+    margin-bottom: 0;
+    margin: 0;
+}
+
+#description:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 #textArea {
@@ -33,14 +50,12 @@
     outline: none;
     appearance: none;
     padding: 0;
-
 }
 
 #textArea:focus {
     border: none;
     outline: none;
     box-shadow: none;
-    
 }
 
 
