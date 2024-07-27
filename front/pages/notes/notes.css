@@ -1,10 +1,26 @@
-.container-fluid {
-    margin: 2em;
+.container {
+    margin-top: 5em;
+    margin-left: 5em;
+
 }
 
 #title {
     font-size: 2em;
     font-weight: bold;
+    overflow: hidden;
+    border: none;
+    outline: none;
+    appearance: none;
+    gap: 0;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+#title:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+
 }
 
 #textArea {
@@ -16,6 +32,7 @@
     border: none;
     outline: none;
     appearance: none;
+    padding: 0;
 
 }
 
@@ -23,7 +40,7 @@
     border: none;
     outline: none;
     box-shadow: none;
-
+    
 }
 
 
