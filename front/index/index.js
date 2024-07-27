@@ -1,16 +1,13 @@
+document.getElementById('openNotes').addEventListener('click', () => {
+    window.electronAPI.openNotes();
+    window.location.href = "../pages/notes/notes.html";
+  });
+  
 
-function viewNotes() { 
-    console.log("add notes clicked");
-    // window.location.href = "/addNotes";
-}
-
-function searchNotes() {
+function settings() {
     console.log("search clicked");
 }
 
-function archiveNotes() {
-    console.log("archive clicked");
-}
 
 function exit() {
     console.log("exit clicked");
