@@ -1,8 +1,9 @@
 import './App.css';
-import Editor_Page from './components/editor.js';
+import Editor_Page from './components/editor/editor.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
-
-function App() {
+function Home() {
   return (
     <div className="App">
       <div class="container">
@@ -13,7 +14,7 @@ function App() {
 
         <div class="options-existing">
             <ul id="options-list"> 
-                <li> <a href="#" id="openNotes"> Open Notes </a> </li>
+                <li> <Link to="/editor" id="openNotes">Open Notes</Link> </li>
                 <li> <a href="#" id="settings"> Settings </a> </li>
                 <li> <a href="#" id="exit"> Exit </a> </li>
 
@@ -25,5 +26,15 @@ function App() {
   );
 }
 
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/editor" element={<Editor_Page />} />
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;
