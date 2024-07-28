@@ -1,3 +1,8 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Editor, EditorState} from 'draft-js';
+import 'draft-js/dist/Draft.css';
+
 // unlimited rows for the text area
 document.getElementById('textArea').addEventListener('input', function() {
     this.style.height = 'auto';
@@ -67,7 +72,8 @@ document.getElementById('textArea').addEventListener('input', function(e) {
     const content = textArea.innerHTML;
 
     if (content.endsWith('- ')) {
-        insertUnorderedList(textArea);
+        //insertUnorderedList(textArea);
+        document.execCommand()
     }
 });
 
