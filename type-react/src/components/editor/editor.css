@@ -1,17 +1,27 @@
-.RichEditor-root {
-  background: #fff;
+.root {
+  background: #292929;
   border: none;
   font-family:sans-serif;
   font-size: 14px;
-  padding: 15px;
-  margin-left: 5rem;
-  margin-right: 5rem;
+  padding-left: 12vw;
+  padding-right: 12vw;
   margin-top: 3rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.box {
+  /* background-color:#333333; */
+  background: linear-gradient(180deg, #333333, #292929);
+  border-radius: 1rem;
+  padding: 1rem;
+  
 }
 
 #title {
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: bold;
+  text-align: center;
   overflow: hidden;
   border: none;
   outline: none;
@@ -19,7 +29,16 @@
   gap: 0;
   padding: 0;
   margin-bottom: 0;
+  background-color: inherit;
+  color: white;
+
+
 }
+
+#title::placeholder {
+  color: white;
+}
+
 
 #title:focus {
   border: none;
@@ -31,13 +50,16 @@
   font-size: 1em;
   color: rgb(82, 82, 82);
   font-style: italic;
-  overflow: hidden;
+  text-align: center;
   border: none;
-  outline: none;
-  appearance: none;
-  padding: 0;
-  margin-bottom: 0;
   margin: 0;
+  background-color: inherit;
+  color: white;
+  
+}
+
+#description::placeholder {
+  color: white;
 }
 
 #description:focus {
@@ -46,79 +68,132 @@
   box-shadow: none;
 }
 
-#textArea {
+.editor-header {  
+  padding: 1rem;
+  border-radius: 0.7em;  
+}
+
+.type-editor {
   width: 100%;
-  height: 200px;
-  margin-top: 1em;
+  margin-top: em;
   resize: none;
   overflow: hidden;
-  border: none;
+  border-top: 1px solid gray;
+  border-radius: 0.3rem;
+  color: white;
   outline: none;
   appearance: none;
-  padding: 0;
+  padding: 2rem;
+  text-align: left;
+  font-size: 1rem;
 }
 
-#textArea:focus {
-  border: none;
-  outline: none;
-  box-shadow: none;
-}
-
-
-
-  
-.RichEditor-editor {
-  border-top: 1px solid #ddd;
-  cursor: text;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-.RichEditor-editor .public-DraftEditorPlaceholder-root,
-.RichEditor-editor .public-DraftEditor-content {
+.type-editor .public-DraftEditorPlaceholder-root,
+.type-editor .public-DraftEditor-content {
   margin: 0 -15px -15px;
   padding: 15px;
 }
 
-.RichEditor-editor .public-DraftEditor-content {
+.type-editor .public-DraftEditor-content {
   min-height: 100px;
 }
 
-.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
-  display: none;
+.editable {
+  width: 100%;
+  margin-top: em;
+  resize: none;
+  overflow: hidden;
+  border-top: 1px solid gray;
+  border-radius: 0.5rem;
+  color: white;
+  outline: none;
+  appearance: none;
+  padding: 1rem;
+  text-align: left;
 }
 
-.RichEditor-editor .RichEditor-blockquote {
-  border-left: 5px solid #eee;
-  color: #666;
+
+.inlineButton {
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  margin-right: 0.5rem;
+  padding: 0.4rem 1.3rem;
+  text-decoration: none;
+  opacity: 100%;
+  transition: background-color 0.2s, color 0.3s;
+}
+
+.inlineButton:focus {
+  background-color: black;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  margin-right: 0.5rem;
+  padding: 0.4rem 1.3rem;
+  text-decoration: none;
+}
+
+.inlineButton.active {
+  background-color: black;
+  color: white;
+}
+
+.styleButton {
+  font-weight: bold;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 7px;
+  color: white;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem ;
+  display: inline-block;
+  transition: background-color 0.2s, color 0.3s;
+}
+
+.activeButton {
+  background-color: black;
+  color: white;
+}
+
+.header-one, .header-two, .header-three {
+  font-weight: bold;
+
+}
+
+.type-editor blockquote {
+  border-left: 5px solid #5a5a5a;
+  color: rgb(219, 219, 219);
   font-family: 'Hoefler Text', 'Georgia', serif;
   font-style: italic;
   margin: 16px 0;
   padding: 10px 20px;
 }
 
-.RichEditor-editor .public-DraftStyleDefault-pre {
+.hidePlaceholder .public-DraftEditorPlaceholder-root {
+  display: none;
+}
+
+
+.type-editor .public-DraftStyleDefault-pre {
   background-color: rgba(0, 0, 0, 0.05);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
   font-size: 16px;
   padding: 20px;
 }
 
-.RichEditor-controls {
+.controls {
   font-family: 'Helvetica', sans-serif;
   font-size: 14px;
   margin-bottom: 5px;
   user-select: none;
-}
-
-.RichEditor-styleButton {
-  color: #999;
-  cursor: pointer;
-  margin-right: 16px;
-  padding: 2px 0;
-  display: inline-block;
-}
-
-.RichEditor-activeButton {
-  color: #5890ff;
 }
