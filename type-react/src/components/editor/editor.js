@@ -146,7 +146,7 @@ class Editor_Page extends React.Component {
                     <div className="title"> 
                         <input type="text" id="title" className="form-control form-control-lg" placeholder="Add a title" aria-label="Title" aria-describedby="basic-addon1" />
                         <input type="text" id="description" className="form-control form-control-sm" placeholder="Add a short description" aria-label="Title" aria-describedby="basic-addon1" />
-                        <hr /> 
+                    
                     </div>
 
 
