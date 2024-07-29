@@ -16,7 +16,7 @@ class Editor_Page extends React.Component {
     
     }
 
-    // key commands
+    // Default Key Commands
     _handleKeyCommand(command, editorState) {
         const newState = RichUtils.handleKeyCommand(editorState, command);
 
@@ -29,6 +29,7 @@ class Editor_Page extends React.Component {
     }
 
 
+    // Key Commands
     _mapKeyToEditorCommand(e) {
         if (e.keyCode === 9 /* TAB */) {
             const newEditorState = RichUtils.onTab(
@@ -42,6 +43,28 @@ class Editor_Page extends React.Component {
             }
 
             return;
+        }
+
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
+            switch (e.keyCode) {
+                case 49: 
+                    this._toggleBlockType('header-one');
+                    return;
+                case 50:
+                    this._toggleBlockType('header-two');
+                    return;
+                case 51:
+                    this._toggleBlockType('header-three');
+                    return;
+                case 52:
+                    this._toggleBlockType('header-three');
+                    return;
+                case 88:
+                    this._toggleStrikethrough('STRIKETHROUGH');
+                    return;
+                default:
+                    break;
+            }
         }
 
         return getDefaultKeyBinding(e);
@@ -60,19 +83,19 @@ class Editor_Page extends React.Component {
    
 
     // Inline Style
-    _onBoldClick() {
+    _toggleBold() {
         this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
     }
 
-    _onItalicClick() {
+    _toggleItalic() {
         this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
     }
 
-    _onUnderlineClick() {
+    _toggleUnderline() {
         this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
     }
 
-    _onStrikethroughClick() {
+    _toggleStrikethrough() {
         this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'STRIKETHROUGH'));
     }
 
@@ -107,69 +130,80 @@ class Editor_Page extends React.Component {
         }
 
         return (
+                    
             <div className="root">
 
-                {/* Title and Description */}
-                <div className="title"> 
-                    <input type="text" id="title" className="form-control form-control-lg" placeholder="Add a title" aria-label="Title" aria-describedby="basic-addon1" />
-                    <input type="text" id="description" className="form-control form-control-sm" placeholder="Add a short description" aria-label="Title" aria-describedby="basic-addon1" />
-                    <hr /> 
+                <div className="side-panel">    
+                    <div className="sp-header"> 
+                        <b> Folders </b> 
+                        <div className="button-container"> <button className="add-folder"> +</button> </div>
+                    </div>
+                                    
                 </div>
 
+                <div className="editor-panel">
+                    {/* Title and Description */}
+                    <div className="title"> 
+                        <input type="text" id="title" className="form-control form-control-lg" placeholder="Add a title" aria-label="Title" aria-describedby="basic-addon1" />
+                        <input type="text" id="description" className="form-control form-control-sm" placeholder="Add a short description" aria-label="Title" aria-describedby="basic-addon1" />
+                        <hr /> 
+                    </div>
 
-                <div className="box">
-                    {/* Editor Header */}
-                    <div className="editor-header">
 
-                        <BlockStyleControls
-                            editorState={editorState}
-                            onToggle={this.toggleBlockType}
-                        />
-                        
-                        {/* Inline Buttons */}
-                        <div className=" Inline-Controls">
-                            <button 
-                                className={`inlineButton ${currentStyle.has('BOLD') ? 'active' : ''}`}
-                                onClick={this._onBoldClick.bind(this)}>
-                                    Bold
-                            </button>
+                    <div className="box">
+                        {/* Editor Header */}
+                        <div className="editor-header">
 
-                            <button 
-                                className={`inlineButton ${currentStyle.has('ITALIC') ? 'active' : ''}`}
-                                onClick={this._onItalicClick.bind(this)}>
-                                    Italic
-                            </button>
+                            <BlockStyleControls
+                                editorState={editorState}
+                                onToggle={this.toggleBlockType}
+                            />
+                            
+                            {/* Inline Buttons */}
+                            <div className=" Inline-Controls">
+                                <button 
+                                    className={`inlineButton ${currentStyle.has('BOLD') ? 'active' : ''}`}
+                                    onClick={this._toggleBold.bind(this)}>
+                                        Bold
+                                </button>
 
-                            <button 
-                                className={`inlineButton ${currentStyle.has('UNDERLINE') ? 'active' : ''}`}
-                                onClick={this._onUnderlineClick.bind(this)}>
-                                    Underline
-                            </button>
+                                <button 
+                                    className={`inlineButton ${currentStyle.has('ITALIC') ? 'active' : ''}`}
+                                    onClick={this._toggleItalic.bind(this)}>
+                                        Italic
+                                </button>
 
-                            <button 
-                                className={`inlineButton ${currentStyle.has('STRIKETHROUGH') ? 'active' : ''}`}
-                                onClick={this._onStrikethroughClick.bind(this)}>
-                                    Strikethrough
-                            </button>
+                                <button 
+                                    className={`inlineButton ${currentStyle.has('UNDERLINE') ? 'active' : ''}`}
+                                    onClick={this._toggleUnderline.bind(this)}>
+                                        Underline
+                                </button>
 
+                                <button 
+                                    className={`inlineButton ${currentStyle.has('STRIKETHROUGH') ? 'active' : ''}`}
+                                    onClick={this._toggleStrikethrough.bind(this)}>
+                                        Strikethrough
+                                </button>
+
+                            </div>
                         </div>
-                    </div>
-                    
-                    {/* Editable portion of page */}
-                    <div className={className} onClick={this.focus}>
-                        <Editor
-                            blockStyleFn={getBlockStyle}
-                            customStyleMap={styleMap}
-                            editorState={editorState}
-                            handleKeyCommand={this.handleKeyCommand}
-                            keyBindingFn={this.mapKeyToEditorCommand}
-                            onChange={this.onChange}
-                            placeholder="Add a description"
-                            ref="editor"
-                            spellCheck={true}
-                        />
-                    </div>
-                </div>  
+                        
+                        {/* Editable portion of page */}
+                        <div className={className} onClick={this.focus}>
+                            <Editor
+                                blockStyleFn={getBlockStyle}
+                                customStyleMap={styleMap}
+                                editorState={editorState}
+                                handleKeyCommand={this.handleKeyCommand}
+                                keyBindingFn={this.mapKeyToEditorCommand}
+                                onChange={this.onChange}
+                                placeholder="Add a description"
+                                ref="editor"
+                                spellCheck={true}
+                            />
+                        </div>
+                    </div>  
+                </div>
             </div>
         );
     }
