@@ -19,7 +19,6 @@ body, html, #root {
   position: sticky; 
 
   .sp-header {
-    text-align: left;
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 1rem;
@@ -137,6 +136,7 @@ body, html, #root {
 .editor-header {  
   padding: 1rem;
   border-radius: 0.7em;  
+  text-align: left;
 }
 
 .type-editor {
@@ -194,7 +194,7 @@ body, html, #root {
   transition: background-color 0.2s, color 0.3s;
 }
 
-.inlineButton:focus {
+.inlineButton:hover {
   background-color: black;
   border: 2px solid black;
   border-radius: 10px;
@@ -212,7 +212,8 @@ body, html, #root {
   color: white;
 }
 
-.styleButton {
+.blockButtons {
+
   font-weight: bold;
   background-color: transparent;
   border: 2px solid white;
@@ -221,7 +222,7 @@ body, html, #root {
   cursor: pointer;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
-  padding: 0.4rem ;
+  padding: 0.4rem 1.3rem;
   display: inline-block;
   transition: background-color 0.2s, color 0.3s;
 }

@@ -155,12 +155,13 @@ class Editor_Page extends React.Component {
                         <div className="editor-header">
 
                             <BlockStyleControls
-                                editorState={editorState}
-                                onToggle={this.toggleBlockType}
+                                    className="block-controls"
+                                    editorState={editorState}
+                                    onToggle={this.toggleBlockType}
                             />
                             
                             {/* Inline Buttons */}
-                            <div className=" Inline-Controls">
+                            <div className=" inline-controls">
                                 <button 
                                     className={`inlineButton ${currentStyle.has('BOLD') ? 'active' : ''}`}
                                     onClick={this._toggleBold.bind(this)}>
@@ -186,6 +187,8 @@ class Editor_Page extends React.Component {
                                 </button>
 
                             </div>
+
+                    
                         </div>
                         
                         {/* Editable portion of page */}
@@ -242,7 +245,7 @@ class StyleButton extends React.Component {
     }
 
     render() {
-        let className = ' styleButton';
+        let className = ' blockButtons';
 
         if (this.props.active) {
             className += ' activeButton';
