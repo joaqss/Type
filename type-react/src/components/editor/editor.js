@@ -18,6 +18,12 @@ class Editor_Page extends React.Component {
 
     // Save Data on Editor
     saveData = () => {
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const jsonTitle = JSON.stringify(title);
+        const jsonDescription = JSON.stringify(description);
+        localStorage.setItem('title', jsonTitle);
+        localStorage.setItem('description', jsonDescription);
         const content = this.state.editorState.getCurrentContent(); // get current data
         const rawData = convertToRaw(content); // convert to raw data
         const jsonData = JSON.stringify(rawData); // make 
@@ -28,8 +34,16 @@ class Editor_Page extends React.Component {
 
     // load data from local storage
     loadData = () => {
+        const savedTitle = localStorage.getItem('title');
+        const savedDescription = localStorage.getItem('description');
         const savedData = localStorage.getItem('content');
-        if (savedData) {
+
+        if (savedData && savedTitle && savedDescription) {
+            const title = JSON.parse(savedTitle);
+            const description = JSON.parse(savedDescription);
+            document.getElementById('title').value = title;
+            document.getElementById('description').value = description;
+
             const rawData = JSON.parse(savedData);
             const content = convertFromRaw(rawData); //function to convert from raw to content
             const editorState = EditorState.createWithContent(content);
@@ -184,8 +198,21 @@ class Editor_Page extends React.Component {
                 <div className="editor-panel">
                     {/* Title and Description */}
                     <div className="title"> 
-                        <input type="text" id="title" className="form-control form-control-lg" placeholder="Add a title" aria-label="Title" aria-describedby="basic-addon1" />
-                        <input type="text" id="description" className="form-control form-control-sm" placeholder="Add a short description" aria-label="Title" aria-describedby="basic-addon1" />
+                        <input type="text" 
+                        id="title" 
+                        className="form-control form-control-lg" 
+                        placeholder="Add a title" 
+                        aria-label="Title" 
+                        aria-describedby="basic-addon1" 
+                        />
+
+                        <input type="text" 
+                        id="description" 
+                        className="form-control form-control-sm" 
+                        placeholder="Add a short description" 
+                        aria-label="Title" 
+                        aria-describedby="basic-addon1" 
+                        />
                     
                     </div>
 
