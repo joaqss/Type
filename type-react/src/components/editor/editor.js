@@ -1,5 +1,5 @@
 import React from 'react'
-import {Editor, EditorState, RichUtils, getDefaultKeyBinding} from 'draft-js';
+import {Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw} from 'draft-js';
 import './editor.css';
 
 class Editor_Page extends React.Component {
@@ -14,6 +14,38 @@ class Editor_Page extends React.Component {
         this.mapKeyToEditorCommand = this._mapKeyToEditorCommand.bind(this);
         this.toggleBlockType = this._toggleBlockType.bind(this);
     
+    }
+
+    // Save Data on Editor
+    saveData = () => {
+        const content = this.state.editorState.getCurrentContent(); // get current data
+        const rawData = convertToRaw(content); // convert to raw data
+        const jsonData = JSON.stringify(rawData); // make 
+        localStorage.setItem('content', jsonData);
+        console.log("Data saved", jsonData);
+
+    }
+
+    // load data from local storage
+    loadData = () => {
+        const savedData = localStorage.getItem('content');
+        if (savedData) {
+            const rawData = JSON.parse(savedData);
+            const content = convertFromRaw(rawData); //function to convert from raw to content
+            const editorState = EditorState.createWithContent(content);
+            this.setState({ editorState });
+            console.log('Editor content loaded:', savedData);
+        }
+    };
+
+    // auto save
+    componentDidMount() {
+        this.loadData();
+        this.autoSaveInterval = setInterval(this.saveData, 1000); // Save every 5 seconds
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.autoSaveInterval);
     }
 
     // Default Key Commands
@@ -45,6 +77,16 @@ class Editor_Page extends React.Component {
             return;
         }
 
+        // save command
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
+            this.saveData();
+        }
+
+        // load data
+        if ((e.ctrlKey || e.metaKey) && e.optionKey) {
+            this.loadData();
+        }
+
         if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
             switch (e.keyCode) {
                 case 49: 
@@ -70,6 +112,7 @@ class Editor_Page extends React.Component {
         return getDefaultKeyBinding(e);
     }
 
+    // Block Style
     _toggleBlockType(blockType) {
         this.onChange(
             RichUtils.toggleBlockType(
@@ -78,9 +121,6 @@ class Editor_Page extends React.Component {
             )
         );
     }
-
-    // Block Style
-   
 
     // Inline Style
     _toggleBold() {
