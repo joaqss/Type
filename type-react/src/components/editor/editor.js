@@ -1,5 +1,7 @@
 import React from 'react'
-import {Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw} from 'draft-js';
+import {Editor, EditorState, RichUtils, getDefaultKeyBinding} from 'draft-js';
+import {saveData} from '../functions/saveData';
+import {loadData} from '../functions/loadData';
 import './editor.css';
 
 class Editor_Page extends React.Component {
@@ -16,46 +18,27 @@ class Editor_Page extends React.Component {
     
     }
 
-    // Save Data on Editor
+    // Save
     saveData = () => {
-        const title = document.getElementById('title').value;
-        const description = document.getElementById('description').value;
-        const jsonTitle = JSON.stringify(title);
-        const jsonDescription = JSON.stringify(description);
-        localStorage.setItem('title', jsonTitle);
-        localStorage.setItem('description', jsonDescription);
-        const content = this.state.editorState.getCurrentContent(); // get current data
-        const rawData = convertToRaw(content); // convert to raw data
-        const jsonData = JSON.stringify(rawData); // make 
-        localStorage.setItem('content', jsonData);
-        console.log("Data saved", jsonData);
-
+        saveData(this.state.editorState);
     }
 
-    // load data from local storage
+    // Load Data
     loadData = () => {
-        const savedTitle = localStorage.getItem('title');
-        const savedDescription = localStorage.getItem('description');
-        const savedData = localStorage.getItem('content');
+        const data = loadData();
+        document.getElementById('title').value = data.title;
+        document.getElementById('description').value = data.description;
+        const editorState = EditorState.createWithContent(data.content);
+        this.setState({ editorState });
 
-        if (savedData && savedTitle && savedDescription) {
-            const title = JSON.parse(savedTitle);
-            const description = JSON.parse(savedDescription);
-            document.getElementById('title').value = title;
-            document.getElementById('description').value = description;
-
-            const rawData = JSON.parse(savedData);
-            const content = convertFromRaw(rawData); //function to convert from raw to content
-            const editorState = EditorState.createWithContent(content);
-            this.setState({ editorState });
-            console.log('Editor content loaded:', savedData);
-        }
-    };
+    }
+    
 
     // auto save
     componentDidMount() {
         this.loadData();
-        this.autoSaveInterval = setInterval(this.saveData, 1000); // Save every 5 seconds
+        this.autoSaveInterval = setInterval(() => this.saveData(), 1000); // Save every 1 second
+        // => is called an arrow function
     }
 
     componentWillUnmount() {
@@ -263,7 +246,7 @@ class Editor_Page extends React.Component {
                             <Editor
                                 blockStyleFn={getBlockStyle}
                                 customStyleMap={styleMap}
-                                editorState={editorState}
+                                editorState={this.state.editorState}
                                 handleKeyCommand={this.handleKeyCommand}
                                 keyBindingFn={this.mapKeyToEditorCommand}
                                 onChange={this.onChange}
